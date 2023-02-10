@@ -1,18 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import {Alert,TextInput, StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 
 export default function App() {
+  const [mail, setMail] = useState("")
+  const [mdp, setMdp] = useState("")
+  
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.flex1}
         placeholder="Email"
+        onChangeText={(text)=>{setMail(text)}}
       />
       <TextInput
         placeholder="Mot de Passe"
         style={styles.flex1}
+        onChangeText={(text)=>{setMdp(text)}}
       />
-      <TouchableOpacity onPress={() =>  {Alert.alert('Action sélectionnée : \n Connexion\n ')}}>
+      <TouchableOpacity onPress={() =>  {Alert.alert('Action sélectionnée : Connexion', ` ${mail} ${mdp}  `)}}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Se Connecter
           </Text>
