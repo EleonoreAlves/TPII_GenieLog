@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import {Alert,TextInput, StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import { NavigationContainer} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {Alert,TextInput, StyleSheet, Text, View,TouchableOpacity,Button } from 'react-native';
+import ModuleList from "./components/ModuleList";
 
-export default function App() {
-  const [mail, setMail] = useState("")
-  const [mdp, setMdp] = useState("")
-  
+const HomeScreen = ({ navigation }) => {
+  const [mail,setMail]=useState("")
+  const [mdp,setMdp]=useState("")
   return (
     <View style={styles.container}>
       <TextInput
@@ -40,7 +42,37 @@ export default function App() {
           </Text>
           </View>
       </TouchableOpacity>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate("Details")}
+      />
     </View>
+  );
+};
+const DetailsScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>This is the details screen</Text>
+      <ModuleList />
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.push("Details")}
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
+    </View>
+  );
+};
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
