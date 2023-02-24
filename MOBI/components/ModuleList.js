@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,13 +6,19 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  FlatList,
 } from "react-native";
+import modules from "../api/modules";
 import getAllModules from "../api/modules";
 
 const ModuleList = () =>{
-    const [id, setId] = useState("");
-    const [nom, setNom] = useState("");
-    const [descriptif, setDiscriptif] = useState("");
-    const [annee, setAnnee] = useState("");
-    const [img, setImg] = useState("");
+    [modules,SetModules]=useState([]);
+    getAllModules().then((modules)=>SetModules(modules));
+    const module =getAllModules(id,year,name,description, teacher,imageUrl);
+    <View>
+        <Flatlist renderImage/>
+    </View>
+    useEffect(() => {
+        modules.name='Le nom du module est {name}'
+    });;
 };
